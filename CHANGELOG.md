@@ -5,3 +5,4 @@ _What's new?_
 - Initial Plugin Version feat...
 - Tables
   - [clickup_task](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_task)
+  - [clickup_task_assignee](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_task_assignee)

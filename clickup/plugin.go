@@ -15,7 +15,8 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 		},
 		DefaultTransform: transform.FromGo(),
 		TableMap: map[string]*plugin.Table{
-			"clickup_task": tableClickupTask(),
+			"clickup_task":          tableClickupTask(),
+			"clickup_task_assignee": tableClickupTaskAssignee(),
 		},
 	}
 
