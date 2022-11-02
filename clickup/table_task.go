@@ -139,11 +139,32 @@ func taskColumns() []*plugin.Column {
 			Type:        proto.ColumnType_BOOL,
 			Description: "Indicates if the task is archived.",
 		},
-		// creator
+		{
+			Name:        "creator_id",
+			Type:        proto.ColumnType_INT,
+			Description: "Identifier for the user whom created the task.",
+			Transform:   transform.FromField("Creator.ID"),
+		},
+		{
+			Name:        "creator",
+			Type:        proto.ColumnType_STRING,
+			Description: "Username of the user whom created the task.",
+			Transform:   transform.FromField("Creator.Username"),
+		},
+		{
+			Name:        "creator_email",
+			Type:        proto.ColumnType_STRING,
+			Description: "Email address of the user whom created the task.",
+			Transform:   transform.FromField("Creator.Email"),
+		},
 		// assignees
 		// watchers
 		// checklists
-		// tags
+		{
+			Name:        "tags",
+			Type:        proto.ColumnType_JSON,
+			Description: "An array of tags associated with the task.",
+		},
 		{
 			Name:        "parent",
 			Type:        proto.ColumnType_STRING,

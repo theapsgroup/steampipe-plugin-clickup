@@ -13,6 +13,7 @@ select
     id,
     name,
     description,
+    creator,
     status,
     priority
 from
