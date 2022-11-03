@@ -18,6 +18,8 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			"clickup_task":          tableClickupTask(),
 			"clickup_task_assignee": tableClickupTaskAssignee(),
 			"clickup_task_watcher":  tableClickupTaskWatcher(),
+			"clickup_team":          tableClickupTeam(),
+			"clickup_team_member":   tableClickupTeamMember(),
 		},
 	}
 
