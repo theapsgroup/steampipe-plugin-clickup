@@ -9,3 +9,4 @@ _What's new?_
   - [clickup_task_watcher](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_task_watcher)
   - [clickup_team](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_team)
   - [clickup_team_member](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_team_member)
+  - [clickup_space](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_space)
