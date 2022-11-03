@@ -16,7 +16,7 @@ func tableClickupTaskAssignee() *plugin.Table {
 			KeyColumns: plugin.SingleColumn("task_id"),
 			Hydrate:    listTaskAssignees,
 		},
-		Columns: taskAssigneeColumns(),
+		Columns: taskUserColumns(),
 	}
 }
 
@@ -42,7 +42,7 @@ func listTaskAssignees(ctx context.Context, d *plugin.QueryData, h *plugin.Hydra
 	return nil, nil
 }
 
-func taskAssigneeColumns() []*plugin.Column {
+func taskUserColumns() []*plugin.Column {
 	return []*plugin.Column{
 		{
 			Name:        "id",

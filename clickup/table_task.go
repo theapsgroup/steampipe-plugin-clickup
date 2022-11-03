@@ -157,8 +157,6 @@ func taskColumns() []*plugin.Column {
 			Description: "Email address of the user whom created the task.",
 			Transform:   transform.FromField("Creator.Email"),
 		},
-		// assignees
-		// watchers
 		// checklists
 		{
 			Name:        "tags",
@@ -199,8 +197,16 @@ func taskColumns() []*plugin.Column {
 			Description: "Estimate (in ms) of how long is required to complete the task.",
 		},
 		// custom fields
-		// dependencies
-		// linked tasks
+		{
+			Name:        "dependencies",
+			Type:        proto.ColumnType_JSON,
+			Description: "An array of task dependencies.",
+		},
+		{
+			Name:        "linked_tasks",
+			Type:        proto.ColumnType_JSON,
+			Description: "An array of json objects to identify linked tasks.",
+		},
 		{
 			Name:        "team_id",
 			Type:        proto.ColumnType_STRING,
