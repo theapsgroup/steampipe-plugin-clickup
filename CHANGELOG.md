@@ -5,6 +5,7 @@ _What's new?_
 - Initial Plugin Version feat...
 - Tables
   - [clickup_folder](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_folder)
+  - [clickup_folderless_list](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_folderless_list)
   - [clickup_goal](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_goal)
   - [clickup_list](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_list)
   - [clickup_space](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_space)
