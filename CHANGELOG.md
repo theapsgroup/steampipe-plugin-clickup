@@ -8,6 +8,7 @@ _What's new?_
   - [clickup_folderless_list](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_folderless_list)
   - [clickup_goal](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_goal)
   - [clickup_list](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_list)
+  - [clickup_list_member](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_list_member)
   - [clickup_space](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_space)
   - [clickup_task](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_task)
   - [clickup_task_assignee](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_task_assignee)

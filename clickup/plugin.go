@@ -19,6 +19,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			"clickup_folderless_list": tableClickupFolderlessList(),
 			"clickup_goal":            tableClickupGoal(),
 			"clickup_list":            tableClickupList(),
+			"clickup_list_member":     tableClickupListMember(),
 			"clickup_space":           tableClickupSpace(),
 			"clickup_task":            tableClickupTask(),
 			"clickup_task_assignee":   tableClickupTaskAssignee(),
