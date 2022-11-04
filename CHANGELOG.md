@@ -6,6 +6,7 @@ _What's new?_
 - Tables
   - [clickup_folder](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_folder)
   - [clickup_goal](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_goal)
+  - [clickup_list](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_list)
   - [clickup_space](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_space)
   - [clickup_task](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_task)
   - [clickup_task_assignee](https://hub.steampipe.io/plugins/theapsgroup/clickup/clickup_task_assignee)

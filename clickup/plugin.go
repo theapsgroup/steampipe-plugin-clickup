@@ -17,6 +17,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 		TableMap: map[string]*plugin.Table{
 			"clickup_folder":        tableClickupFolder(),
 			"clickup_goal":          tableClickupGoal(),
+			"clickup_list":          tableClickupList(),
 			"clickup_space":         tableClickupSpace(),
 			"clickup_task":          tableClickupTask(),
 			"clickup_task_assignee": tableClickupTaskAssignee(),
