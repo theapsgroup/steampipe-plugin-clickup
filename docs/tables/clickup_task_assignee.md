@@ -10,14 +10,14 @@ You **MUST** specify a `task_id` in the WHERE or JOIN clause.
 
 ```sql
 select
-    id,
-    username,
-    email,
-    color,
-    profile_picture,
-    initials
+  id,
+  username,
+  email,
+  color,
+  profile_picture,
+  initials
 from
-    clickup_task_assignee
+  clickup_task_assignee
 where
-    task_id = '4g9milk'
+  task_id = '4g9milk'
 ```

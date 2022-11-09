@@ -10,31 +10,31 @@ However you **MUST** specify either an `id` (single) or `list_id` (for multiple 
 
 ```sql
 select
-    id,
-    name,
-    description,
-    creator,
-    status,
-    priority
+  id,
+  name,
+  description,
+  creator,
+  status,
+  priority
 from
-    clickup_task
+  clickup_task
 where
-    id = '69xca6m';
+  id = '69xca6m';
 ```
 
 ### List all tasks for a specific list
 
 ```sql
 select
-    id,
-    status,
-    date_created,
-    date_closed,
-    due_date,
-    team_id,
-    project_id
+  id,
+  status,
+  date_created,
+  date_closed,
+  due_date,
+  team_id,
+  project_id
 from
-    clickup_task
+  clickup_task
 where
-    list_id = '194506756';
+  list_id = '194506756';
 ```

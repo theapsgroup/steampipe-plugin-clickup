@@ -10,44 +10,44 @@ However you **MUST** specify either an `id` (single) or `folder_id` (for multipl
 
 ```sql
 select
-    id,
-    name,
-    order_index,
-    content,
-    status,
-    priority,
-    assignee,
-    task_count,
-    due_date,
-    start_date,
-    folder,
-    space,
-    archived
+  id,
+  name,
+  order_index,
+  content,
+  status,
+  priority,
+  assignee,
+  task_count,
+  due_date,
+  start_date,
+  folder,
+  space,
+  archived
 from
-    clickup_list
+  clickup_list
 where
-    id = '6fs7dfm';
+  id = '6fs7dfm';
 ```
 
 ### List lists for a specific folder
 
 ```sql
 select
-    id,
-    name,
-    order_index,
-    content,
-    status,
-    priority,
-    assignee,
-    task_count,
-    due_date,
-    start_date,
-    folder,
-    space,
-    archived
+  id,
+  name,
+  order_index,
+  content,
+  status,
+  priority,
+  assignee,
+  task_count,
+  due_date,
+  start_date,
+  folder,
+  space,
+  archived
 from
-    clickup_list
+  clickup_list
 where
-    folder_id = 's6fsd8fds';
+  folder_id = 's6fsd8fds';
 ```

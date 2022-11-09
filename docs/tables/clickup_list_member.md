@@ -10,14 +10,14 @@ You **MUST** specify a `list_id` in the WHERE or JOIN clause.
 
 ```sql
 select
-    id,
-    username,
-    email,
-    color,
-    profile_picture,
-    initials
+  id,
+  username,
+  email,
+  color,
+  profile_picture,
+  initials
 from
-    clickup_list_member
+  clickup_list_member
 where
-    list_id = '9429v3v2390'
+  list_id = '9429v3v2390'
 ```

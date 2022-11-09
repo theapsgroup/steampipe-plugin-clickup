@@ -10,21 +10,21 @@ However you **MUST** specify a `space_id` in the WHERE or JOIN clause.
 
 ```sql
 select
-    id,
-    name,
-    order_index,
-    content,
-    status,
-    priority,
-    assignee,
-    task_count,
-    due_date,
-    start_date,
-    folder,
-    space,
-    archived
+  id,
+  name,
+  order_index,
+  content,
+  status,
+  priority,
+  assignee,
+  task_count,
+  due_date,
+  start_date,
+  folder,
+  space,
+  archived
 from
-    clickup_folderless_list
+  clickup_folderless_list
 where
-    space_id = '7423465';
+  space_id = '7423465';
 ```

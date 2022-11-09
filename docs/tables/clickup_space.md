@@ -11,38 +11,38 @@ However you **MUST** specify either an `id` (single) or `team_id` (multiple) in 
 ### Get a space by id
 
 ```sql
-    select
-        id,
-        name,
-        private,
-        sprints,
-        tags,
-        milestones
+select
+  id,
+  name,
+  private,
+  sprints,
+  tags,
+  milestones
 from
-    clickup_space
+  clickup_space
 where
-    id = '7423465';
+  id = '7423465';
 ```
 
 ### List all spaces for a specific team
 
 ```sql
-    select
-        id,
-        name,
-        private,
-        sprints,
-        tags,
-        milestones,
-        statuses,
-        multiple_assignees,
-        due_dates,
-        points,
-        time_estimates,
-        time_tracking,
-        archived
+select
+  id,
+  name,
+  private,
+  sprints,
+  tags,
+  milestones,
+  statuses,
+  multiple_assignees,
+  due_dates,
+  points,
+  time_estimates,
+  time_tracking,
+  archived
 from
-    clickup_space
+  clickup_space
 where
-    team_id = '969532885';
+  team_id = '969532885';
 ```

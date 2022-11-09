@@ -10,17 +10,17 @@ You **MUST** specify a `team_id` in the WHERE or JOIN clause.
 
 ```sql
 select
-    id,
-    username,
-    email,
-    color,
-    profile_picture,
-    initials,
-    last_active,
-    date_joined,
-    date_invited
+  id,
+  username,
+  email,
+  color,
+  profile_picture,
+  initials,
+  last_active,
+  date_joined,
+  date_invited
 from
-    clickup_team_member
+  clickup_team_member
 where
-    team_id = 21596865;
+  team_id = 21596865;
 ```
