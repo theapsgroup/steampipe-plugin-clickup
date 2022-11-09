@@ -10,7 +10,7 @@ og_description: Query ClickUp with SQL! Open source CLI. No DB required.
 og_image: "/images/plugins/theapsgroup/clickup-social-graphic.png"
 ---
 
-# ClickUp + Turbot Steampipe
+# ClickUp + Steampipe
 
 [ClickUp](https://clickup.com/) is a SaaS specialising in Project/Task Management similar to Jira or Asana.
 
@@ -28,10 +28,12 @@ og_image: "/images/plugins/theapsgroup/clickup-social-graphic.png"
 steampipe plugin install theapsgroup/clickup
 ```
 
-### Prerequisites
+### Credentials
 
-- ClickUp Account
-- [ClickUp API Token](https://clickup.com/api/developer-portal/authentication#personal-token)
+| Item | Description  |
+| ---- |--------------|
+| Credentials | You will require a [ClickUp API Token](https://clickup.com/api/developer-portal/authentication#personal-token) |
+| Resolution | 1. Credentials explicitly set in a steampipe config file (`~/.steampipe/config/clickup.spc`).<br />2. Credentials specified in environment variables, e.g., `CLICKUP_TOKEN`. |
 
 ### Configuration
 
@@ -54,5 +56,11 @@ connection "clickup" {
 A quick test can be performed from your terminal with:
 
 ```shell
-steampipe query "select * from clickup_task"
+> steampipe query "select id, name, color from clickup_task"
+
++---------+---------------+---------+
+| id      | name          | color   |
++---------+---------------+---------+
+| 1111111 | The APS Group | #003b75 |
++---------+---------------+---------+
 ```

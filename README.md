@@ -30,14 +30,16 @@ Run a query:
 Interactive Mode:
 ```sql
 select
-  *
+  id,
+  name,
+  color
 from
   clickup_team;
 ```
 
 or from CLI:
 ```shell
-steampipe query "select * from clickup_team"
+steampipe query "select id, name, color from clickup_team"
 ```
 
 ## Developing
@@ -79,3 +81,12 @@ Further reading:
 
 - [Writing plugins](https://steampipe.io/docs/develop/writing-plugins)
 - [Writing your first table](https://steampipe.io/docs/develop/writing-your-first-table)
+
+## Contributing
+
+Please see the [contribution guidelines](https://github.com/turbot/steampipe/blob/main/CONTRIBUTING.md) and our [code of conduct](https://github.com/turbot/steampipe/blob/main/CODE_OF_CONDUCT.md). All contributions are subject to the [Apache 2.0 open source license](https://github.com/turbot/steampipe-plugin-pagerduty/blob/main/LICENSE).
+
+`help wanted` issues:
+
+- [Steampipe](https://github.com/turbot/steampipe/labels/help%20wanted)
+- [ClickUp Plugin](https://github.com/theapsgroup/steampipe-plugin-clickup/labels/help%20wanted)
