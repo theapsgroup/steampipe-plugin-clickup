@@ -11,7 +11,8 @@ import (
 
 func tableClickupTask() *plugin.Table {
 	return &plugin.Table{
-		Name: "clickup_task",
+		Name:        "clickup_task",
+		Description: "Obtain tasks by specifying either an id or a list_id.",
 		List: &plugin.ListConfig{
 			KeyColumns: plugin.SingleColumn("list_id"),
 			Hydrate:    listTasks,

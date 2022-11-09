@@ -10,7 +10,8 @@ import (
 
 func tableClickupFolder() *plugin.Table {
 	return &plugin.Table{
-		Name: "clickup_folder",
+		Name:        "clickup_folder",
+		Description: "Obtain folders by specifying either an id or a space_id.",
 		List: &plugin.ListConfig{
 			Hydrate:    listFolders,
 			KeyColumns: plugin.SingleColumn("space_id"),

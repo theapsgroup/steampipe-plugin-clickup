@@ -9,7 +9,8 @@ import (
 
 func tableClickupTeam() *plugin.Table {
 	return &plugin.Table{
-		Name: "clickup_team",
+		Name:        "clickup_team",
+		Description: "Obtain teams associated with your user token.",
 		List: &plugin.ListConfig{
 			Hydrate: listTeams,
 		},

@@ -11,7 +11,8 @@ import (
 
 func tableClickupTaskAssignee() *plugin.Table {
 	return &plugin.Table{
-		Name: "clickup_task_assignee",
+		Name:        "clickup_task_assignee",
+		Description: "Obtain assignees for a specific task by specifying a task_id.",
 		List: &plugin.ListConfig{
 			KeyColumns: plugin.SingleColumn("task_id"),
 			Hydrate:    listTaskAssignees,

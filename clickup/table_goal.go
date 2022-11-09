@@ -10,7 +10,8 @@ import (
 
 func tableClickupGoal() *plugin.Table {
 	return &plugin.Table{
-		Name: "clickup_goal",
+		Name:        "clickup_goal",
+		Description: "Obtain goals by specifying either an id or a team_id.",
 		List: &plugin.ListConfig{
 			KeyColumns: plugin.SingleColumn("team_id"),
 			Hydrate:    listGoals,

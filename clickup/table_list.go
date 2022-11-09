@@ -10,7 +10,8 @@ import (
 
 func tableClickupList() *plugin.Table {
 	return &plugin.Table{
-		Name: "clickup_list",
+		Name:        "clickup_list",
+		Description: "Obtain lists that are associated to a folder by specifying either an id or a folder_id.",
 		List: &plugin.ListConfig{
 			KeyColumns: plugin.SingleColumn("folder_id"),
 			Hydrate:    listLists,

@@ -8,7 +8,8 @@ import (
 
 func tableClickupFolderlessList() *plugin.Table {
 	return &plugin.Table{
-		Name: "clickup_folderless_list",
+		Name:        "clickup_folderless_list",
+		Description: "Obtain lists not associated to a folder by providing a space_id.",
 		List: &plugin.ListConfig{
 			KeyColumns: plugin.SingleColumn("space_id"),
 			Hydrate:    listFolderlessLists,

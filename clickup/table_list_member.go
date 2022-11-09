@@ -10,7 +10,8 @@ import (
 
 func tableClickupListMember() *plugin.Table {
 	return &plugin.Table{
-		Name: "clickup_list_member",
+		Name:        "clickup_list_member",
+		Description: "Obtain members of a specific list by specifying a list_id.",
 		List: &plugin.ListConfig{
 			KeyColumns: plugin.SingleColumn("list_id"),
 			Hydrate:    listListMembers,

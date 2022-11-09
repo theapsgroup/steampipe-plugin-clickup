@@ -10,7 +10,8 @@ import (
 
 func tableClickupSpace() *plugin.Table {
 	return &plugin.Table{
-		Name: "clickup_space",
+		Name:        "clickup_space",
+		Description: "Obtain spaces by specifying either an id or a team_id.",
 		List: &plugin.ListConfig{
 			KeyColumns: plugin.SingleColumn("team_id"),
 			Hydrate:    listSpace,

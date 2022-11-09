@@ -10,7 +10,8 @@ import (
 
 func tableClickupTeamMember() *plugin.Table {
 	return &plugin.Table{
-		Name: "clickup_team_member",
+		Name:        "clickup_team_member",
+		Description: "Obtain members for a specific team by specifying a task_id.",
 		List: &plugin.ListConfig{
 			KeyColumns: plugin.SingleColumn("team_id"),
 			Hydrate:    listTeamMembers,
