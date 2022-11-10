@@ -24,3 +24,21 @@ from
 where
   team_id = 21596865;
 ```
+
+### List all members for all teams you have access to
+
+```sql
+select
+  t.id as team_id,
+  t.name as team_name,
+  t.color as team_color,
+  m.id as member_id,
+  m.username as member,
+  m.email as member_email
+from
+  clickup_team t
+left join
+  clickup_team_member m
+on
+  t.id = m.team_id
+```

@@ -6,7 +6,7 @@ However you **MUST** specify a `space_id` in the WHERE or JOIN clause.
 
 ## Examples
 
-### List lists for a specific folder
+### List lists for a space that are not associated with a folder.
 
 ```sql
 select

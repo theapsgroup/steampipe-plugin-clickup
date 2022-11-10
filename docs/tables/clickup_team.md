@@ -1,6 +1,6 @@
 # Table: clickup_team
 
-Obtain information about teams in your ClickUp environment.
+Obtain information about teams you have access to in your ClickUp environment.
 
 ## Examples
 

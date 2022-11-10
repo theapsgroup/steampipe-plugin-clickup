@@ -46,3 +46,28 @@ from
 where
   team_id = '969532885';
 ```
+
+### List spaces which do not have the sprints features enabled
+
+```sql
+select
+  id,
+  name,
+  private,
+  sprints,
+  tags,
+  milestones,
+  statuses,
+  multiple_assignees,
+  due_dates,
+  points,
+  time_estimates,
+  time_tracking,
+  archived
+from
+  clickup_space
+where
+  team_id = '969532885'
+and
+  sprints = false;
+```
