@@ -32,15 +32,13 @@ func listFolders(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData
 
 	spaceId := d.KeyColumnQuals["space_id"].GetStringValue()
 
-	for {
-		folders, _, err := client.Folders.GetFolders(ctx, spaceId, true)
-		if err != nil {
-			return nil, fmt.Errorf("unable to obtain folders for space id '%s': %v", spaceId, err)
-		}
+	folders, _, err := client.Folders.GetFolders(ctx, spaceId, true)
+	if err != nil {
+		return nil, fmt.Errorf("unable to obtain folders for space id '%s': %v", spaceId, err)
+	}
 
-		for _, folder := range folders {
-			d.StreamListItem(ctx, folder)
-		}
+	for _, folder := range folders {
+		d.StreamListItem(ctx, folder)
 	}
 
 	return nil, nil
