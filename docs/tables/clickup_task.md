@@ -1,8 +1,8 @@
-# Table: clickup_team_task
+# Table: clickup_task
 
 Obtain information about tasks assigned to a specific team within your ClickUp environment.
 
-However you **MUST** specify either an `id` (single) or `team_id` (for multiple tasks) in the WHERE or JOIN clause.
+However you **MUST** specify either an `id` (single) or either a `list_id` or `team_id` (for multiple tasks) in the WHERE or JOIN clause.
 
 ## Examples
 
@@ -17,9 +17,26 @@ select
   status,
   priority
 from
-  clickup_team_task
+  clickup_task
 where
   id = '69xca6m';
+```
+
+### List all tasks for a specific list
+
+```sql
+select
+  id,
+  status,
+  date_created,
+  date_closed,
+  due_date,
+  team_id,
+  project_id
+from
+  clickup_task
+where
+  list_id = '19306756';
 ```
 
 ### List all tasks for a specific team
@@ -34,12 +51,12 @@ select
   team_id,
   project_id
 from
-  clickup_team_task
+  clickup_task
 where
   team_id = '2506756';
 ```
 
-### Obtain tasks for my team that're of a specific status
+### Obtain tasks for a team that are of a specific status
 
 ```sql
 select
@@ -53,7 +70,7 @@ select
   list_id,
   folder_id,
 from
-  clickup_team_task
+  clickup_task
 where
   team_id = '2506756'
 and

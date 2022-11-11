@@ -20,13 +20,12 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			"clickup_goal":            tableClickupGoal(),
 			"clickup_list":            tableClickupList(),
 			"clickup_list_member":     tableClickupListMember(),
-			"clickup_list_task":       tableClickupListTask(),
 			"clickup_space":           tableClickupSpace(),
+			"clickup_task":            tableClickupTask(),
 			"clickup_task_assignee":   tableClickupTaskAssignee(),
 			"clickup_task_watcher":    tableClickupTaskWatcher(),
 			"clickup_team":            tableClickupTeam(),
 			"clickup_team_member":     tableClickupTeamMember(),
-			"clickup_team_task":       tableClickupTeamTask(),
 		},
 	}
 
