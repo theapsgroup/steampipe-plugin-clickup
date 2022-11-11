@@ -30,7 +30,7 @@ with some_tasks as
   select
     t.id
   from
-    clickup_task t
+    clickup_list_task t
   where
     t.list_id = 'xczx34'
   order by

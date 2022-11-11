@@ -1,4 +1,4 @@
-# Table: clickup_task
+# Table: clickup_list_task
 
 Obtain information about tasks within your ClickUp environment.
 
@@ -17,7 +17,7 @@ select
   status,
   priority
 from
-  clickup_task
+  clickup_list_task
 where
   id = '69xca6m';
 ```
@@ -34,7 +34,7 @@ select
   team_id,
   project_id
 from
-  clickup_task
+  clickup_list_task
 where
   list_id = '194506756';
 ```
