@@ -9,13 +9,13 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
 )
 
-func tableClickupTask() *plugin.Table {
+func tableClickupListTask() *plugin.Table {
 	return &plugin.Table{
-		Name:        "clickup_task",
+		Name:        "clickup_list_task",
 		Description: "Obtain tasks by specifying either an id or a list_id.",
 		List: &plugin.ListConfig{
 			KeyColumns: plugin.SingleColumn("list_id"),
-			Hydrate:    listTasks,
+			Hydrate:    listListTasks,
 		},
 		Get: &plugin.GetConfig{
 			KeyColumns: plugin.SingleColumn("id"),
@@ -25,7 +25,7 @@ func tableClickupTask() *plugin.Table {
 	}
 }
 
-func listTasks(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+func listListTasks(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	client, err := connect(ctx, d)
 	if err != nil {
 		return nil, fmt.Errorf("unable to establish a connection: %v", err)
