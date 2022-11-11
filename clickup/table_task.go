@@ -9,30 +9,44 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
 )
 
-func tableClickupListTask() *plugin.Table {
+func tableClickupTask() *plugin.Table {
 	return &plugin.Table{
-		Name:        "clickup_list_task",
-		Description: "Obtain tasks by specifying either an id or a list_id.",
+		Name:        "clickup_task",
+		Description: "Obtain tasks by a specific id or by providing either a team_id or list_id",
 		List: &plugin.ListConfig{
-			KeyColumns: plugin.SingleColumn("list_id"),
-			Hydrate:    listListTasks,
+			Hydrate: listTasks,
+			KeyColumns: []*plugin.KeyColumn{
+				{
+					Name:    "team_id",
+					Require: plugin.AnyOf,
+				},
+				{
+					Name:    "list_id",
+					Require: plugin.AnyOf,
+				},
+				{
+					Name:    "status",
+					Require: plugin.Optional,
+				},
+			},
 		},
 		Get: &plugin.GetConfig{
-			KeyColumns: plugin.SingleColumn("id"),
 			Hydrate:    getTask,
+			KeyColumns: plugin.SingleColumn("id"),
 		},
 		Columns: taskColumns(),
 	}
 }
 
-func listListTasks(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+func listTasks(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	client, err := connect(ctx, d)
 	if err != nil {
 		return nil, fmt.Errorf("unable to establish a connection: %v", err)
 	}
 
-	listId := d.KeyColumnQuals["list_id"].GetStringValue()
+	q := d.KeyColumnQuals
 
+	// Default options
 	opts := &clickup.GetTasksOptions{
 		Page:          0,
 		Archived:      true,
@@ -40,17 +54,35 @@ func listListTasks(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 		Subtasks:      true,
 	}
 
+	teamId := q["team_id"].GetStringValue()
+	listId := q["list_id"].GetStringValue()
+
+	// TODO: Enhance with folderId, listId, spaceId, etc once support is captured in the SDK.
+	if q["status"] != nil {
+		opts.Statuses = []string{q["status"].GetStringValue()}
+	}
+
+	var ts []clickup.Task
 	for {
-		tasks, _, err := client.Tasks.GetTasks(ctx, listId, opts)
-		if err != nil {
-			return nil, fmt.Errorf("unable to obtain tasks for list id '%s': %v", listId, err)
+		if listId != "" {
+			tasks, _, err := client.Tasks.GetTasks(ctx, listId, opts)
+			if err != nil {
+				return nil, fmt.Errorf("unable to obtain tasks for list id '%s': %v", listId, err)
+			}
+			ts = tasks
+		} else {
+			tasks, _, err := client.Tasks.GetFilteredTeamTasks(ctx, teamId, opts)
+			if err != nil {
+				return nil, fmt.Errorf("unable to obtain tasks for team id '%s': %v", teamId, err)
+			}
+			ts = tasks
 		}
 
-		for _, task := range tasks {
-			d.StreamListItem(ctx, task)
+		for _, t := range ts {
+			d.StreamListItem(ctx, t)
 		}
 
-		if len(tasks) < 100 {
+		if len(ts) < 100 {
 			break
 		}
 
