@@ -1,6 +1,6 @@
 # Table: clickup_list_task
 
-Obtain information about tasks within your ClickUp environment.
+Obtain information about tasks assigned to a specific list within your ClickUp environment.
 
 However you **MUST** specify either an `id` (single) or `list_id` (for multiple tasks) in the WHERE or JOIN clause.
 
