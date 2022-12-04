@@ -209,9 +209,9 @@ func taskColumns() []*plugin.Column {
 		},
 		{
 			Name:        "due_date",
-			Type:        proto.ColumnType_TIMESTAMP,
+			Type:        proto.ColumnType_STRING,
 			Description: "Timestamp when the task is due.",
-			Transform:   transform.FromField("DueDate.time"),
+			Transform:   transform.FromField("DueDate"),
 		},
 		{
 			Name:        "start_date",
