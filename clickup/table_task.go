@@ -211,7 +211,7 @@ func taskColumns() []*plugin.Column {
 			Name:        "due_date",
 			Type:        proto.ColumnType_TIMESTAMP,
 			Description: "Timestamp when the task is due.",
-			Transform:   transform.FromField("DueDate").Transform(unixTimeTransform),
+			Transform:   transform.FromField("DueDate.time"),
 		},
 		{
 			Name:        "start_date",
@@ -223,6 +223,7 @@ func taskColumns() []*plugin.Column {
 			Name:        "points",
 			Type:        proto.ColumnType_INT,
 			Description: "Points attributed to the task.",
+			Transform:   transform.FromField("Points.IntVal"),
 		},
 		{
 			Name:        "time_estimate",
