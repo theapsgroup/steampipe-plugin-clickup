@@ -32,14 +32,18 @@ func listGoals(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 
 	teamId := d.KeyColumnQuals["team_id"].GetStringValue()
 
-	for {
-		goals, _, _, err := client.Goals.GetGoals(ctx, teamId, true)
-		if err != nil {
-			return nil, fmt.Errorf("unable to obtain goals for team id '%s': %v", teamId, err)
-		}
+	goals, goalFolders, _, err := client.Goals.GetGoals(ctx, teamId, true)
+	if err != nil {
+		return nil, fmt.Errorf("unable to obtain goals for team id '%s': %v", teamId, err)
+	}
 
-		for _, goal := range goals {
-			d.StreamListItem(ctx, goal)
+	for _, goal := range goals {
+		d.StreamListItem(ctx, goal)
+	}
+
+	for _, gf := range goalFolders {
+		for _, g := range gf.Goals {
+			d.StreamListItem(ctx, g)
 		}
 	}
 
@@ -117,19 +121,19 @@ func goalColumns() []*plugin.Column {
 			Name:        "date_created",
 			Type:        proto.ColumnType_TIMESTAMP,
 			Description: "Timestamp when the goal was created.",
-			Transform:   transform.From(unixTimeTransform),
+			Transform:   transform.FromField("DateCreated").Transform(unixTimeTransform),
 		},
 		{
 			Name:        "start_date",
 			Type:        proto.ColumnType_TIMESTAMP,
 			Description: "Timestamp when work on the goal was started.",
-			Transform:   transform.From(unixTimeTransform),
+			Transform:   transform.FromField("StartDate").Transform(unixTimeTransform),
 		},
 		{
 			Name:        "due_date",
 			Type:        proto.ColumnType_TIMESTAMP,
 			Description: "Timestamp when the goal is due.",
-			Transform:   transform.From(unixTimeTransform),
+			Transform:   transform.FromField("DueDate").Transform(unixTimeTransform),
 		},
 		{
 			Name:        "description",
@@ -155,7 +159,7 @@ func goalColumns() []*plugin.Column {
 			Name:        "date_updated",
 			Type:        proto.ColumnType_TIMESTAMP,
 			Description: "Timestamp when the goal was last updated.",
-			Transform:   transform.From(unixTimeTransform),
+			Transform:   transform.FromField("DateUpdated").Transform(unixTimeTransform),
 		},
 		{
 			Name:        "folder_id",
@@ -174,7 +178,7 @@ func goalColumns() []*plugin.Column {
 		},
 		{
 			Name:        "percent_completed",
-			Type:        proto.ColumnType_INT,
+			Type:        proto.ColumnType_DOUBLE,
 			Description: "Numeric representation of how complete the goal is.",
 		},
 	}
