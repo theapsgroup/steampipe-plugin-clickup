@@ -82,19 +82,19 @@ func teamMemberColumns() []*plugin.Column {
 			Name:        "last_active",
 			Type:        proto.ColumnType_TIMESTAMP,
 			Description: "Timestamp when the user was last active.",
-			Transform:   transform.From(unixTimeTransform),
+			Transform:   transform.FromField("LastActive").Transform(unixTimeTransform),
 		},
 		{
 			Name:        "date_joined",
 			Type:        proto.ColumnType_TIMESTAMP,
 			Description: "Timestamp when the user actually joined the team.",
-			Transform:   transform.From(unixTimeTransform),
+			Transform:   transform.FromField("DateJoined").Transform(unixTimeTransform),
 		},
 		{
 			Name:        "date_invited",
 			Type:        proto.ColumnType_TIMESTAMP,
 			Description: "Timestamp when the user was invited to join the team.",
-			Transform:   transform.From(unixTimeTransform),
+			Transform:   transform.FromField("DateInvited").Transform(unixTimeTransform),
 		},
 		{
 			Name:        "team_id",
