@@ -3,7 +3,7 @@ module steampipe-plugin-clickup
 go 1.19
 
 require (
-	github.com/raksul/go-clickup v0.0.0-20221003001419-98f856c306c2
+	github.com/raksul/go-clickup v0.0.0-20221203054039-cbe5f452a814
 	github.com/turbot/steampipe-plugin-sdk/v4 v4.1.7
 )
 
