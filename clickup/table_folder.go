@@ -31,12 +31,15 @@ func listFolders(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData
 	}
 
 	spaceId := d.KeyColumnQuals["space_id"].GetStringValue()
+	plugin.Logger(ctx).Debug("listFolders", "spaceId", spaceId)
 
 	folders, _, err := client.Folders.GetFolders(ctx, spaceId, true)
 	if err != nil {
+		plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain folders for space id '%s': %v", spaceId, err))
 		return nil, fmt.Errorf("unable to obtain folders for space id '%s': %v", spaceId, err)
 	}
 
+	plugin.Logger(ctx).Debug("listFolders", "spaceId", spaceId, "results", len(folders))
 	for _, folder := range folders {
 		d.StreamListItem(ctx, folder)
 	}
@@ -51,9 +54,11 @@ func getFolder(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 	}
 
 	folderId := d.KeyColumnQuals["id"].GetStringValue()
+	plugin.Logger(ctx).Debug("getFolder", "id", folderId)
 
 	folder, _, err := client.Folders.GetFolder(ctx, folderId)
 	if err != nil {
+		plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain folder with id '%s': %v", folderId, err))
 		return nil, fmt.Errorf("unable to obtain folder with id '%s': %v", folderId, err)
 	}
 

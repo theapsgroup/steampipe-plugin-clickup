@@ -25,12 +25,15 @@ func listFolderlessLists(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 	}
 
 	spaceId := d.KeyColumnQuals["space_id"].GetStringValue()
+	plugin.Logger(ctx).Debug("listFolderlessLists", "spaceId", spaceId)
 
 	lists, _, err := client.Lists.GetFolderlessLists(ctx, spaceId, true)
 	if err != nil {
+		plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain folderless lists for space id '%s': %v", spaceId, err))
 		return nil, fmt.Errorf("unable to obtain folderless lists for space id '%s': %v", spaceId, err)
 	}
 
+	plugin.Logger(ctx).Debug("listFolderlessLists", "spaceId", spaceId, "results", len(lists))
 	for _, list := range lists {
 		d.StreamListItem(ctx, list)
 	}

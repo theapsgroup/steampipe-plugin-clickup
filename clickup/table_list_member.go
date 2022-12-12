@@ -27,12 +27,15 @@ func listListMembers(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrate
 	}
 
 	listId := d.KeyColumnQuals["list_id"].GetStringValue()
+	plugin.Logger(ctx).Debug("listListMembers", "listId", listId)
 
 	members, _, err := client.Members.GetListMembers(ctx, listId)
 	if err != nil {
+		plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain members for list id '%s': %v", listId, err))
 		return nil, fmt.Errorf("unable to obtain members for list id '%s': %v", listId, err)
 	}
 
+	plugin.Logger(ctx).Debug("listListMembers", "listId", listId, "results", len(members))
 	for _, member := range members {
 		d.StreamListItem(ctx, member)
 	}

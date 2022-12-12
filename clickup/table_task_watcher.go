@@ -26,14 +26,17 @@ func listTaskWatchers(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrat
 	}
 
 	taskId := d.KeyColumnQuals["task_id"].GetStringValue()
+	plugin.Logger(ctx).Debug("listTaskWatchers", "taskId", taskId)
 
 	opts := &clickup.GetTaskOptions{}
 
 	task, _, err := client.Tasks.GetTask(ctx, taskId, opts)
 	if err != nil {
+		plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain task with id '%s': %v", taskId, err))
 		return nil, fmt.Errorf("unable to obtain task with id '%s': %v", taskId, err)
 	}
 
+	plugin.Logger(ctx).Debug("listTaskWatchers", "taskId", taskId, "results", len(task.Watchers))
 	for _, watcher := range task.Watchers {
 		d.StreamListItem(ctx, watcher)
 	}
