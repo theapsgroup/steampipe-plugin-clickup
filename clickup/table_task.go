@@ -59,22 +59,29 @@ func listTasks(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 
 	// TODO: Enhance with folderId, listId, spaceId, etc once support is captured in the SDK.
 	if q["status"] != nil {
+		plugin.Logger(ctx).Debug("listTasks", "status", q["status"].GetStringValue())
 		opts.Statuses = []string{q["status"].GetStringValue()}
 	}
 
 	var ts []clickup.Task
 	for {
 		if listId != "" {
+			plugin.Logger(ctx).Debug("listTasks", "listId", listId, "page", opts.Page)
 			tasks, _, err := client.Tasks.GetTasks(ctx, listId, opts)
 			if err != nil {
+				plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain tasks for list id '%s': %v", listId, err))
 				return nil, fmt.Errorf("unable to obtain tasks for list id '%s': %v", listId, err)
 			}
+			plugin.Logger(ctx).Debug("listTasks", "listId", listId, "page", opts.Page, "results", len(tasks))
 			ts = tasks
 		} else {
+			plugin.Logger(ctx).Debug("listTasks", "teamId", teamId, "page", opts.Page)
 			tasks, _, err := client.Tasks.GetFilteredTeamTasks(ctx, teamId, opts)
 			if err != nil {
+				plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain tasks for team id '%s': %v", teamId, err))
 				return nil, fmt.Errorf("unable to obtain tasks for team id '%s': %v", teamId, err)
 			}
+			plugin.Logger(ctx).Debug("listTasks", "teamId", teamId, "page", opts.Page, "results", len(tasks))
 			ts = tasks
 		}
 
@@ -83,6 +90,7 @@ func listTasks(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 		}
 
 		if len(ts) < 100 {
+			plugin.Logger(ctx).Debug("listTasks - exiting as page returned < 100 items", "page", opts.Page, "results", len(ts))
 			break
 		}
 

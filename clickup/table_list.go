@@ -31,12 +31,15 @@ func listLists(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 	}
 
 	folderId := d.KeyColumnQuals["folder_id"].GetStringValue()
+	plugin.Logger(ctx).Debug("listLists", "folderId", folderId)
 
 	lists, _, err := client.Lists.GetLists(ctx, folderId, true)
 	if err != nil {
+		plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain lists for folder id '%s': %v", folderId, err))
 		return nil, fmt.Errorf("unable to obtain lists for folder id '%s': %v", folderId, err)
 	}
 
+	plugin.Logger(ctx).Debug("listLists", "folderId", folderId, "results", len(lists))
 	for _, list := range lists {
 		d.StreamListItem(ctx, list)
 	}
@@ -51,9 +54,11 @@ func getList(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (i
 	}
 
 	listId := d.KeyColumnQuals["id"].GetStringValue()
+	plugin.Logger(ctx).Debug("getList", "id", listId)
 
 	list, _, err := client.Lists.GetList(ctx, listId)
 	if err != nil {
+		plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain list with id '%s': %v", listId, err))
 		return nil, fmt.Errorf("unable to obtain list with id '%s': %v", listId, err)
 	}
 

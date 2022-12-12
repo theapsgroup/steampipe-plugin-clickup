@@ -27,15 +27,18 @@ func listTeamMembers(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrate
 	}
 
 	teamId := d.KeyColumnQuals["team_id"].GetStringValue()
+	plugin.Logger(ctx).Debug("listTeamMembers", "teamId", teamId)
 
 	// Note: No SDK method to obtain a single team
 	teams, _, err := client.Teams.GetTeams(ctx)
 	if err != nil {
+		plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain teams: %v", err))
 		return nil, fmt.Errorf("unable to obtain teams: %v", err)
 	}
 
 	for _, team := range teams {
 		if team.ID == teamId {
+			plugin.Logger(ctx).Debug("listTeamMembers", "teamId", teamId, "results", len(team.Members))
 			for _, member := range team.Members {
 				d.StreamListItem(ctx, member.User)
 			}

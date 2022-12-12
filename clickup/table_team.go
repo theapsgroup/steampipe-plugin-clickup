@@ -24,11 +24,15 @@ func listTeams(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 		return nil, fmt.Errorf("unable to establish a connection: %v", err)
 	}
 
+	plugin.Logger(ctx).Debug("listTeams")
+
 	teams, _, err := client.Teams.GetTeams(ctx)
 	if err != nil {
+		plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain teams: %v", err))
 		return nil, fmt.Errorf("unable to obtain teams: %v", err)
 	}
 
+	plugin.Logger(ctx).Debug("listTeams", "results", len(teams))
 	for _, team := range teams {
 		d.StreamListItem(ctx, team)
 	}

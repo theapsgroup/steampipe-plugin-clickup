@@ -31,17 +31,21 @@ func listGoals(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 	}
 
 	teamId := d.KeyColumnQuals["team_id"].GetStringValue()
+	plugin.Logger(ctx).Debug("listGoals", "teamId", teamId)
 
 	goals, goalFolders, _, err := client.Goals.GetGoals(ctx, teamId, true)
 	if err != nil {
+		plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain goals for team id '%s': %v", teamId, err))
 		return nil, fmt.Errorf("unable to obtain goals for team id '%s': %v", teamId, err)
 	}
 
+	plugin.Logger(ctx).Debug("listGoals", "teamId", teamId, "topLevelGoals", len(goals), "goalFolders", len(goalFolders))
 	for _, goal := range goals {
 		d.StreamListItem(ctx, goal)
 	}
 
 	for _, gf := range goalFolders {
+		plugin.Logger(ctx).Debug("listGoals", "teamId", teamId, "goalFolder", gf.Name, "goals", len(gf.Goals))
 		for _, g := range gf.Goals {
 			d.StreamListItem(ctx, g)
 		}
@@ -57,9 +61,11 @@ func getGoal(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (i
 	}
 
 	goalId := d.KeyColumnQuals["id"].GetStringValue()
+	plugin.Logger(ctx).Debug("getGoal", "id", goalId)
 
 	goal, _, err := client.Goals.GetGoal(ctx, goalId)
 	if err != nil {
+		plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain goal with id '%s': %v", goalId, err))
 		return nil, fmt.Errorf("unable to obtain goal with id '%s': %v", goalId, err)
 	}
 

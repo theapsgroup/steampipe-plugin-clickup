@@ -31,12 +31,15 @@ func listSpace(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 	}
 
 	teamId := d.KeyColumnQuals["team_id"].GetStringValue()
+	plugin.Logger(ctx).Debug("listSpace", "teamId", teamId)
 
 	spaces, _, err := client.Spaces.GetSpaces(ctx, teamId)
 	if err != nil {
+		plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain spacess for team id '%s': %v", teamId, err))
 		return nil, fmt.Errorf("unable to obtain spacess for team id '%s': %v", teamId, err)
 	}
 
+	plugin.Logger(ctx).Debug("listSpace", "teamId", teamId, "results", len(spaces))
 	for _, space := range spaces {
 		d.StreamListItem(ctx, space)
 	}
@@ -51,9 +54,11 @@ func getSpace(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (
 	}
 
 	spaceId := d.KeyColumnQuals["id"].GetStringValue()
+	plugin.Logger(ctx).Debug("getSpace", "id", spaceId)
 
 	space, _, err := client.Spaces.GetSpace(ctx, spaceId)
 	if err != nil {
+		plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain space with id '%s': %v", spaceId, err))
 		return nil, fmt.Errorf("unable to obtain space with id '%s': %v", spaceId, err)
 	}
 
