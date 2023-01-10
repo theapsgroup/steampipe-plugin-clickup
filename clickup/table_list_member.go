@@ -3,9 +3,9 @@ package clickup
 import (
 	"context"
 	"fmt"
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 func tableClickupListMember() *plugin.Table {
@@ -26,7 +26,7 @@ func listListMembers(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrate
 		return nil, fmt.Errorf("unable to establish a connection: %v", err)
 	}
 
-	listId := d.KeyColumnQuals["list_id"].GetStringValue()
+	listId := d.EqualsQuals["list_id"].GetStringValue()
 	plugin.Logger(ctx).Debug("listListMembers", "listId", listId)
 
 	members, _, err := client.Members.GetListMembers(ctx, listId)

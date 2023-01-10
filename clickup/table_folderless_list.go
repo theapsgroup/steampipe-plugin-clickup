@@ -3,7 +3,7 @@ package clickup
 import (
 	"context"
 	"fmt"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 )
 
 func tableClickupFolderlessList() *plugin.Table {
@@ -24,7 +24,7 @@ func listFolderlessLists(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 		return nil, fmt.Errorf("unable to establish a connection: %v", err)
 	}
 
-	spaceId := d.KeyColumnQuals["space_id"].GetStringValue()
+	spaceId := d.EqualsQuals["space_id"].GetStringValue()
 	plugin.Logger(ctx).Debug("listFolderlessLists", "spaceId", spaceId)
 
 	lists, _, err := client.Lists.GetFolderlessLists(ctx, spaceId, true)

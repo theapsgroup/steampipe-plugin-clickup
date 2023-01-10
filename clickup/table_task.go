@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 	"github.com/raksul/go-clickup/clickup"
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 func tableClickupTask() *plugin.Table {
@@ -44,7 +44,7 @@ func listTasks(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 		return nil, fmt.Errorf("unable to establish a connection: %v", err)
 	}
 
-	q := d.KeyColumnQuals
+	q := d.EqualsQuals
 
 	// Default options
 	opts := &clickup.GetTasksOptions{
@@ -106,7 +106,7 @@ func getTask(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (i
 		return nil, fmt.Errorf("unable to establish a connection: %v", err)
 	}
 
-	taskId := d.KeyColumnQuals["id"].GetStringValue()
+	taskId := d.EqualsQuals["id"].GetStringValue()
 
 	opts := &clickup.GetTaskOptions{}
 

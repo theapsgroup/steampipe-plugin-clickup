@@ -3,9 +3,9 @@ package clickup
 import (
 	"context"
 	"fmt"
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 func tableClickupFolder() *plugin.Table {
@@ -30,7 +30,7 @@ func listFolders(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData
 		return nil, fmt.Errorf("unable to establish a connection: %v", err)
 	}
 
-	spaceId := d.KeyColumnQuals["space_id"].GetStringValue()
+	spaceId := d.EqualsQuals["space_id"].GetStringValue()
 	plugin.Logger(ctx).Debug("listFolders", "spaceId", spaceId)
 
 	folders, _, err := client.Folders.GetFolders(ctx, spaceId, true)
@@ -53,7 +53,7 @@ func getFolder(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 		return nil, fmt.Errorf("unable to establish a connection: %v", err)
 	}
 
-	folderId := d.KeyColumnQuals["id"].GetStringValue()
+	folderId := d.EqualsQuals["id"].GetStringValue()
 	plugin.Logger(ctx).Debug("getFolder", "id", folderId)
 
 	folder, _, err := client.Folders.GetFolder(ctx, folderId)

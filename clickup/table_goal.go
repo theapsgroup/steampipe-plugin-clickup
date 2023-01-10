@@ -3,9 +3,9 @@ package clickup
 import (
 	"context"
 	"fmt"
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 func tableClickupGoal() *plugin.Table {
@@ -30,7 +30,7 @@ func listGoals(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 		return nil, fmt.Errorf("unable to establish a connection: %v", err)
 	}
 
-	teamId := d.KeyColumnQuals["team_id"].GetStringValue()
+	teamId := d.EqualsQuals["team_id"].GetStringValue()
 	plugin.Logger(ctx).Debug("listGoals", "teamId", teamId)
 
 	goals, goalFolders, _, err := client.Goals.GetGoals(ctx, teamId, true)
@@ -60,7 +60,7 @@ func getGoal(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (i
 		return nil, fmt.Errorf("unable to establish a connection: %v", err)
 	}
 
-	goalId := d.KeyColumnQuals["id"].GetStringValue()
+	goalId := d.EqualsQuals["id"].GetStringValue()
 	plugin.Logger(ctx).Debug("getGoal", "id", goalId)
 
 	goal, _, err := client.Goals.GetGoal(ctx, goalId)

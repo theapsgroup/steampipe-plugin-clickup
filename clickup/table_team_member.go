@@ -3,9 +3,9 @@ package clickup
 import (
 	"context"
 	"fmt"
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 func tableClickupTeamMember() *plugin.Table {
@@ -26,7 +26,7 @@ func listTeamMembers(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrate
 		return nil, fmt.Errorf("unable to establish a connection: %v", err)
 	}
 
-	teamId := d.KeyColumnQuals["team_id"].GetStringValue()
+	teamId := d.EqualsQuals["team_id"].GetStringValue()
 	plugin.Logger(ctx).Debug("listTeamMembers", "teamId", teamId)
 
 	// Note: No SDK method to obtain a single team

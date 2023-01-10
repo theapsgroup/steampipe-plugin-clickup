@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 	"github.com/raksul/go-clickup/clickup"
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 func tableClickupTaskAssignee() *plugin.Table {
@@ -27,7 +27,7 @@ func listTaskAssignees(ctx context.Context, d *plugin.QueryData, h *plugin.Hydra
 		return nil, fmt.Errorf("unable to establish a connection: %v", err)
 	}
 
-	taskId := d.KeyColumnQuals["task_id"].GetStringValue()
+	taskId := d.EqualsQuals["task_id"].GetStringValue()
 	plugin.Logger(ctx).Debug("listTaskAssignees", "taskId", taskId)
 
 	opts := &clickup.GetTaskOptions{}

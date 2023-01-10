@@ -3,9 +3,9 @@ package clickup
 import (
 	"context"
 	"fmt"
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 func tableClickupSpace() *plugin.Table {
@@ -30,7 +30,7 @@ func listSpace(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 		return nil, fmt.Errorf("unable to establish a connection: %v", err)
 	}
 
-	teamId := d.KeyColumnQuals["team_id"].GetStringValue()
+	teamId := d.EqualsQuals["team_id"].GetStringValue()
 	plugin.Logger(ctx).Debug("listSpace", "teamId", teamId)
 
 	spaces, _, err := client.Spaces.GetSpaces(ctx, teamId)
@@ -53,7 +53,7 @@ func getSpace(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (
 		return nil, fmt.Errorf("unable to establish a connection: %v", err)
 	}
 
-	spaceId := d.KeyColumnQuals["id"].GetStringValue()
+	spaceId := d.EqualsQuals["id"].GetStringValue()
 	plugin.Logger(ctx).Debug("getSpace", "id", spaceId)
 
 	space, _, err := client.Spaces.GetSpace(ctx, spaceId)

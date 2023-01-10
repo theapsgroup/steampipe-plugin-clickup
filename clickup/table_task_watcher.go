@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/raksul/go-clickup/clickup"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 )
 
 func tableClickupTaskWatcher() *plugin.Table {
@@ -25,7 +25,7 @@ func listTaskWatchers(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrat
 		return nil, fmt.Errorf("unable to establish a connection: %v", err)
 	}
 
-	taskId := d.KeyColumnQuals["task_id"].GetStringValue()
+	taskId := d.EqualsQuals["task_id"].GetStringValue()
 	plugin.Logger(ctx).Debug("listTaskWatchers", "taskId", taskId)
 
 	opts := &clickup.GetTaskOptions{}
