@@ -13,8 +13,17 @@ func tableClickupFolder() *plugin.Table {
 		Name:        "clickup_folder",
 		Description: "Obtain folders by specifying either an id or a space_id.",
 		List: &plugin.ListConfig{
-			Hydrate:    listFolders,
-			KeyColumns: plugin.SingleColumn("space_id"),
+			Hydrate: listFolders,
+			KeyColumns: []*plugin.KeyColumn{
+				{
+					Name:    "space_id",
+					Require: plugin.Required,
+				},
+				{
+					Name:    "archived",
+					Require: plugin.Optional,
+				},
+			},
 		},
 		Get: &plugin.GetConfig{
 			Hydrate:    getFolder,
@@ -31,9 +40,13 @@ func listFolders(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData
 	}
 
 	spaceId := d.EqualsQuals["space_id"].GetStringValue()
-	plugin.Logger(ctx).Debug("listFolders", "spaceId", spaceId)
+	archived := false
+	if d.EqualsQuals["archived"] != nil {
+		archived = d.EqualsQuals["archived"].GetBoolValue()
+	}
+	plugin.Logger(ctx).Debug("listFolders", "spaceId", spaceId, "archived", archived)
 
-	folders, _, err := client.Folders.GetFolders(ctx, spaceId, true)
+	folders, _, err := client.Folders.GetFolders(ctx, spaceId, archived)
 	if err != nil {
 		plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain folders for space id '%s': %v", spaceId, err))
 		return nil, fmt.Errorf("unable to obtain folders for space id '%s': %v", spaceId, err)

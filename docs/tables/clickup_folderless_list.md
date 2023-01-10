@@ -4,6 +4,8 @@ Obtain information about lists that aren't associated to folders within your Cli
 
 However you **MUST** specify a `space_id` in the WHERE or JOIN clause.
 
+> Note: by default `archived` items won't be returned, to return archived items only set `archived = true` in the where clause.
+
 ## Examples
 
 ### List lists for a space that are not associated with a folder.

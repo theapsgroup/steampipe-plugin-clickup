@@ -28,6 +28,10 @@ func tableClickupTask() *plugin.Table {
 					Name:    "status",
 					Require: plugin.Optional,
 				},
+				{
+					Name:    "archived",
+					Require: plugin.Optional,
+				},
 			},
 		},
 		Get: &plugin.GetConfig{
@@ -49,7 +53,7 @@ func listTasks(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 	// Default options
 	opts := &clickup.GetTasksOptions{
 		Page:          0,
-		Archived:      true,
+		Archived:      false,
 		IncludeClosed: true,
 		Subtasks:      true,
 	}
@@ -61,6 +65,10 @@ func listTasks(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 	if q["status"] != nil {
 		plugin.Logger(ctx).Debug("listTasks", "status", q["status"].GetStringValue())
 		opts.Statuses = []string{q["status"].GetStringValue()}
+	}
+	if q["archived"] != nil {
+		plugin.Logger(ctx).Debug("listTasks", "archived", q["archived"].GetBoolValue())
+		opts.Archived = q["archived"].GetBoolValue()
 	}
 
 	var ts []clickup.Task
@@ -89,8 +97,8 @@ func listTasks(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 			d.StreamListItem(ctx, t)
 		}
 
-		if len(ts) < 100 {
-			plugin.Logger(ctx).Debug("listTasks - exiting as page returned < 100 items", "page", opts.Page, "results", len(ts))
+		if len(ts) == 0 {
+			plugin.Logger(ctx).Debug("listTasks", "teamId", teamId, "exiting, page returned 0 results.")
 			break
 		}
 

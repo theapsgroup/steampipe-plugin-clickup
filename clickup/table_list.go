@@ -13,8 +13,17 @@ func tableClickupList() *plugin.Table {
 		Name:        "clickup_list",
 		Description: "Obtain lists that are associated to a folder by specifying either an id or a folder_id.",
 		List: &plugin.ListConfig{
-			KeyColumns: plugin.SingleColumn("folder_id"),
-			Hydrate:    listLists,
+			KeyColumns: []*plugin.KeyColumn{
+				{
+					Name:    "folder_id",
+					Require: plugin.Required,
+				},
+				{
+					Name:    "archived",
+					Require: plugin.Optional,
+				},
+			},
+			Hydrate: listLists,
 		},
 		Get: &plugin.GetConfig{
 			KeyColumns: plugin.SingleColumn("id"),
@@ -31,9 +40,13 @@ func listLists(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 	}
 
 	folderId := d.EqualsQuals["folder_id"].GetStringValue()
-	plugin.Logger(ctx).Debug("listLists", "folderId", folderId)
+	archived := false
+	if d.EqualsQuals["archived"] != nil {
+		archived = d.EqualsQuals["archived"].GetBoolValue()
+	}
+	plugin.Logger(ctx).Debug("listLists", "folderId", folderId, "archived", archived)
 
-	lists, _, err := client.Lists.GetLists(ctx, folderId, true)
+	lists, _, err := client.Lists.GetLists(ctx, folderId, archived)
 	if err != nil {
 		plugin.Logger(ctx).Error(fmt.Sprintf("unable to obtain lists for folder id '%s': %v", folderId, err))
 		return nil, fmt.Errorf("unable to obtain lists for folder id '%s': %v", folderId, err)
