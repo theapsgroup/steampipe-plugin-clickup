@@ -56,7 +56,7 @@ connection "clickup" {
 A quick test can be performed from your terminal with:
 
 ```shell
-> steampipe query "select id, name, color from clickup_task"
+> steampipe query "select id, name, color from clickup_team"
 
 +---------+---------------+---------+
 | id      | name          | color   |
