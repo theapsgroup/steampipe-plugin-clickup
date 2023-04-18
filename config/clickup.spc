@@ -3,5 +3,5 @@ connection "clickup" {
 
     # ClickUp API token
     # This can also be set via the `CLICKUP_TOKEN` environment variable.
-    #token = "pk_xxxxxxx_xxxxxxxxxxxxx"
+    # token = "pk_xxxxxxx_xxxxxxxxxxxxx"
 }
