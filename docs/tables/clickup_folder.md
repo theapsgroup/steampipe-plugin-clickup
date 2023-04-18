@@ -18,7 +18,7 @@ select
   hidden,
   space_id,
   task_count,
-  archived,
+  archived
 from
   clickup_folder
 where
@@ -35,7 +35,7 @@ select
   hidden,
   space_id,
   task_count,
-  archived,
+  archived
 from
   clickup_folder
 where

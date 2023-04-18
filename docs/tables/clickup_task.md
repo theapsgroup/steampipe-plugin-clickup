@@ -70,7 +70,7 @@ select
   team_id,
   space_id,
   list_id,
-  folder_id,
+  folder_id
 from
   clickup_task
 where
