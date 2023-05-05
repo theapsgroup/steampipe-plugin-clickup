@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/raksul/go-clickup v0.0.0-20221203054039-cbe5f452a814
-	github.com/turbot/steampipe-plugin-sdk/v5 v5.3.0
+	github.com/turbot/steampipe-plugin-sdk/v5 v5.4.1
 )
 
 require (
