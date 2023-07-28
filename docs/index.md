@@ -16,6 +16,22 @@ og_image: "/images/plugins/theapsgroup/clickup-social-graphic.png"
 
 [Steampipe](https://steampipe.io/) is an open source CLI for querying cloud APIs using SQL from [Turbot](https://turbot.com/)
 
+For example:
+```sql
+select 
+  id, 
+  name, 
+  color 
+from 
+  clickup_team;
+```
+```
++---------+---------------+---------+
+| id      | name          | color   |
++---------+---------------+---------+
+| 1111111 | The APS Group | #003b75 |
++---------+---------------+---------+
+```
 ## Documentation
 
 - [Table definitions / examples](https://hub.steampipe.io/plugins/theapsgroup/clickup/tables)
@@ -51,16 +67,7 @@ connection "clickup" {
 }
 ```
 
-### Testing
+## Get involved
 
-A quick test can be performed from your terminal with:
-
-```shell
-> steampipe query "select id, name, color from clickup_team"
-
-+---------+---------------+---------+
-| id      | name          | color   |
-+---------+---------------+---------+
-| 1111111 | The APS Group | #003b75 |
-+---------+---------------+---------+
-```
+- Open source: https://github.com/theapsgroup/steampipe-plugin-clickup
+- Community: [Join #steampipe on Slack →](https://turbot.com/community/join)
